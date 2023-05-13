@@ -1,0 +1,109 @@
+:root {
+    --animation-time: 2s;
+}
+
+.grid-item {
+    flex-basis: calc(100% / var(--columns));
+    height: 50px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid #000;
+    transition: background-color 0.5s ease;
+  }
+
+body {
+	background: linear-gradient(50deg, rgba(35,166,213,1) 7%, rgba(84,0,255,1) 17%, rgba(157,0,224,1) 33%, rgba(231,60,126,1) 70%, rgba(252,176,69,1) 100%);
+	background-size: 400% 400%;
+	animation: gradient 60s cubic-bezier(.39,.06,.61,.94) infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+  .spinner {
+    animation-name: spinner;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: var(--animation-time);
+    transform-style: preserve-3d;
+    text-align:center;
+  }
+  @keyframes spinner {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(-360deg);
+    }
+  }
+  
+  
+  #shadowBox {
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.2);
+      /* Black w/opacity/see-through */
+      border: 3px solid;
+  }
+  
+  .rainbow {
+      text-align: center;
+      text-decoration: underline;
+      font-size: 32px;
+      font-family: monospace;
+      letter-spacing: 5px;
+  }
+  .rainbow_text_animated {
+      background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow_animation var(--animation-time) ease-in-out infinite;
+      background-size: 400% 100%;
+  }
+  
+  @keyframes rainbow_animation {
+      0%,100% {
+          background-position: 0 0;
+      }
+  
+      50% {
+          background-position: 100% 0;
+      }
+  }
+  
+  @keyframes blinker {
+    50% {
+      
+    }
+  }
+  
+  #hs:after {
+    content:"";
+    animation: spin var(--animation-time) linear infinite;
+  }
+  
+  @keyframes spin {
+      0%,100% {
+          content:"HumanSolutions";
+      }
+  
+      50% {
+        content:"HuSo";
+      }
+  }
+  
+  p{
+    font-size: 9vw;
+  }
