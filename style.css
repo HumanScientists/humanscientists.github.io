@@ -2,20 +2,59 @@
     --animation-time: 2s;
 }
 
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+    background-position: -50% -50%;
+    width: 120vw;
+    height: 30vh;
+    overflow: hidden;
+
+    position: relative;
+
+    background: linear-gradient(50deg, rgba(35,166,213,1) 7%, rgba(84,0,255,1) 17%, rgba(157,0,224,1) 33%, rgba(231,60,126,1) 70%, rgba(252,176,69,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient 60s cubic-bezier(.39,.06,.61,.94) infinite;
+    padding: 0vh;
+}
+
 .grid-item {
     flex-basis: calc(100% / var(--columns));
     height: 50px;
-    width: 20px;
+    width: 50px;
     background-color: transparent;
     border: 1px solid #000;
     transition: background-color 0.5s ease;
+    position: relative;
+    left: -10vw;
+    top: -10vh;
   }
 
+.animate {
+    animation: light-up 0.5s ease-out infinite;
+}
+
+@keyframes light-up {
+    0% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        background-color: transparent;
+    }
+  
+}
+
+
 body {
-	background: linear-gradient(50deg, rgba(35,166,213,1) 7%, rgba(84,0,255,1) 17%, rgba(157,0,224,1) 33%, rgba(231,60,126,1) 70%, rgba(252,176,69,1) 100%);
-	background-size: 400% 400%;
-	animation: gradient 60s cubic-bezier(.39,.06,.61,.94) infinite;
-	height: 100vh;
+  padding: 0vh;
+  margin: 0vh;
 }
 
 @keyframes gradient {
@@ -32,6 +71,8 @@ body {
 
 
   .spinner {
+    /* set on top of page */
+    margin-top: -43vh;
     animation-name: spinner;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -83,12 +124,6 @@ body {
       }
   }
   
-  @keyframes blinker {
-    50% {
-      
-    }
-  }
-  
   #hs:after {
     content:"";
     animation: spin var(--animation-time) linear infinite;
@@ -96,7 +131,7 @@ body {
   
   @keyframes spin {
       0%,100% {
-          content:"HumanSolutions";
+        content:"HumanSolutions";
       }
   
       50% {

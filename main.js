@@ -1,49 +1,58 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.grid-container');
+    // get div class="grid-container"
+    const grid = document.querySelector('.grid-container');
 
-    console.log("container", container);
+    // get width of container (which is 100% of the screen)
+    const width = grid.offsetWidth;
+    const height = grid.offsetHeight;
 
-    const gridSize = 50;
-    const numRows = 10;
-    const numCols = Math.ceil(container.offsetHeight / gridSize);
-    const numItems = numRows * numCols;
+    // set number of rows and columns. 50px is the size of each cell
+    // but we want to fill out the entire screen and want the blocks to move later on
+    // we only want integer values and add 10 to each to make sure we fill the entire screen
+    const rows = Math.floor(height / 50) + 10;
+    const cols = Math.floor(width / 50) + 10;
 
-    // Set the --columns variable in the CSS to the number of columns
-    container.style.setProperty('--columns', numCols);
-
-    // Create grid items
-
-    console.log(numRows, numCols, numItems)
-
-    for (let i = 0; i < numItems; i++) {
-    const item = document.createElement('div');
-    item.classList.add('grid-item');
-    container.appendChild(item);
+    // create a 2D array to store the grid
+    let gridArray = new Array(rows);
+    for (let i = 0; i < rows; i++) {
+        gridArray[i] = new Array(cols);
     }
 
-    // Color transitions
-    function getRandomColor(prevColor, nextColor) {
-    const hslPrev = prevColor.match(/\d+/g);
-    const hslNext = nextColor.match(/\d+/g);
-    const h = Math.round((parseInt(hslPrev[0]) + parseInt(hslNext[0])) / 2);
-    const s = Math.round((parseInt(hslPrev[1]) + parseInt(hslNext[1])) / 2);
-    const l = Math.round((parseInt(hslPrev[2]) + parseInt(hslNext[2])) / 2);
-    return `hsl(${h}, ${s}%, ${l}%)`;
+    // create the grid
+    function createGrid() {
+        // loop through each row
+        for (let i = 0; i < rows; i++) {
+            // loop through each column
+            for (let j = 0; j < cols; j++) {
+                // create a div element
+                let cell = document.createElement('div');
+                // add a class to the div
+                cell.classList.add('grid-item');
+                // add the div to the grid
+                grid.appendChild(cell);
+                // add the div to the array
+                gridArray[i][j] = cell;
+            }
+        }
+    }    
+    // call the createGrid function
+    createGrid();
+
+    // every 100ms, pick a random cell and add a class "animate" to it
+    // once the animation is done, remove the class
+    // create a function to animate the cells
+    function animateCells() {
+        // get a random cell
+        const cells = document.querySelectorAll('.grid-item');
+        const randomCell = cells[Math.floor(Math.random() * cells.length)];
+        // add the animate class to the random cell
+        randomCell.classList.add('animate');
+        // remove the animate class after 500ms
+        setTimeout(() => {
+            randomCell.classList.remove('animate');
+        }, 500);
     }
-
-    const items = document.querySelectorAll('.grid-item');
-
-    items.forEach((item, index) => {
-    // Get previous and next items
-    const prevItem = items[index - 1];
-    const nextItem = items[index + 1];
-    
-    // Get previous and next colors
-    const prevColor = prevItem ? window.getComputedStyle(prevItem).backgroundColor : '#ffffff';
-    const nextColor = nextItem ? window.getComputedStyle(nextItem).backgroundColor : '#ffffff';
-    
-    // Set background color based on previous and next colors
-    item.style.backgroundColor = getRandomColor(prevColor, nextColor);
-    });
+    // call the animateCells function every 100ms
+    setInterval(animateCells, 10);
 });
 
