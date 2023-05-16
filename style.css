@@ -10,32 +10,33 @@
     background-color: transparent;
     transition: background-color 0.5s ease;
     background-position: -50% -50%;
-    width: 120vw;
-    height: 30vh;
+    width: 200%;
+    height: 100%;
     overflow: hidden;
 
     position: relative;
 
     background: linear-gradient(50deg, rgba(35,166,213,1) 7%, rgba(84,0,255,1) 17%, rgba(157,0,224,1) 33%, rgba(231,60,126,1) 70%, rgba(252,176,69,1) 100%);
     background-size: 400% 400%;
-    animation: gradient 60s cubic-bezier(.39,.06,.61,.94) infinite;
+    animation: gradient 10s cubic-bezier(.39,.06,.61,.94) infinite;
     padding: 0vh;
 }
 
 .grid-item {
     flex-basis: calc(100% / var(--columns));
-    height: 50px;
-    width: 50px;
+    /* height and width should be screen width // 15 but at least 50px big and max 100px big*/
+    height: min(15vw, 80px);
+    width: min(15vw, 80px);
     background-color: transparent;
     border: 1px solid #000;
     transition: background-color 0.5s ease;
     position: relative;
     left: -10vw;
-    top: -10vh;
+    top: -10vh;    
   }
 
 .animate {
-    animation: light-up 0.5s ease-out infinite;
+  animation: light-up 1s ease-out infinite;
 }
 
 @keyframes light-up {
@@ -55,24 +56,33 @@
 body {
   padding: 0vh;
   margin: 0vh;
+  overflow-x: hidden;
+  background-color: #121212;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
+	0%, 100% {
+		background-position: 25% 0%;
+	}
+	25% {
+		background-position: 30% 80%;
 	}
 	50% {
-		background-position: 100% 50%;
+		background-position: 100% 100%;
 	}
-	100% {
-		background-position: 0% 50%;
-	}
+  75%{
+    background-position: 100% 25%;
+  }
+}
+
+.example::-webkit-scrollbar {
+  display: none;
 }
 
 
-  .spinner {
+.spinner {
     /* set on top of page */
-    margin-top: -43vh;
+    margin-top: -100vh;
     animation-name: spinner;
     animation-timing-function: linear;
     animation-iteration-count: infinite;

@@ -3,20 +3,24 @@ window.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid-container');
 
     // get width of container (which is 100% of the screen)
-    const width = grid.offsetWidth;
-    const height = grid.offsetHeight;
+    const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const height = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
 
-    // set number of rows and columns. 50px is the size of each cell
-    // but we want to fill out the entire screen and want the blocks to move later on
-    // we only want integer values and add 10 to each to make sure we fill the entire screen
-    const rows = Math.floor(height / 50) + 10;
-    const cols = Math.floor(width / 50) + 10;
+    console.log(width, height);
 
-    // create a 2D array to store the grid
-    let gridArray = new Array(rows);
-    for (let i = 0; i < rows; i++) {
-        gridArray[i] = new Array(cols);
-    }
+    // if the screen is smaller than 1000px, use 20px as the divisor
+    // otherwise, use 50px as the divisor
+
+    divisor = Math.min(Math.floor(0.15*width), 80);
+
+    console.log(Math.floor(0.15*width), divisor)
+
+    const rows = Math.floor(height/divisor)+1;
+    const cols = Math.floor(width/divisor)+1;
+
+    console.log(rows, cols, rows*cols)
+
+    console.log(rows, cols)
 
     // create the grid
     function createGrid() {
@@ -30,8 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 cell.classList.add('grid-item');
                 // add the div to the grid
                 grid.appendChild(cell);
-                // add the div to the array
-                gridArray[i][j] = cell;
             }
         }
     }    
